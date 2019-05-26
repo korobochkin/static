@@ -4,8 +4,9 @@ matrix:
       language: php
       php: 7.0
       install: composer install --no-ansi --no-interaction --no-progress --no-scripts --optimize-autoloader --classmap-authoritative
-      before_script: php -S localhost:8000 -t web >/dev/null 2>&1 &
+      before_script: php -S localhost:8000 -t web &
       script: php index.php
+      after_script: kill $! # kill php built in webserver from before_script
       deploy:
         provider: pages
         github-token: $GITHUB_TOKEN
